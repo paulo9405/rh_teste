@@ -39,10 +39,9 @@
                         <td>
                             <a href="{% url 'core_update_employee' employee.id %}">Edit</a>
                         </td>
-
-
-
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <a href="{% url 'core_employee_pdf' %}">Print PDF </a> <br>
+        <a href="{% url 'core_employee_csv' %}">Print CSV </a>

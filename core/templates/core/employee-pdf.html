@@ -1,0 +1,38 @@
+<style>
+    .red {
+        color: red;
+    }
+    .blue {
+      color: blue;
+    }
+
+</style>
+
+<h1 class="blue">Employee detail</h1>
+<table>
+  <tr class="red">
+    <td>Name</td>
+    <td>User</td>
+    <td>Gender</td>
+    <td>Department</td>
+    <td>Phone</td>
+    <td>Role</td>
+    <td>Age</td>
+    <td>Joining date</td>
+    <td>Salary</td>
+  </tr>
+
+  {% for employee in employees %}
+      <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.user }}</td>
+        <td>{{ employee.gender }}</td>
+        <td>{{ employee.department }}</td>
+        <td>{{ employee.phone }}</td>
+        <td>{{ employee.role }}</td>
+        <td>{{ employee.age }}</td>
+        <td>{{ employee.joining_date }}</td>
+        <td>{{ employee.salary }}</td>
+      </tr>
+  {% endfor %}
+</table>

@@ -11,7 +11,9 @@ from .views import (
     create_employee,
     list_employee,
     update_employee,
-    delete_employee
+    delete_employee,
+    Employee_pdf,
+    Employee_csv
 )
 
 
@@ -31,6 +33,8 @@ urlpatterns = [
     path('create-employee/', create_employee, name='core_create_employee'),
     path('update-employee/(?P<id>[0-9]+)/$', update_employee, name='core_update_employee'),
     path('delete-employee/(?P<id>[0-9]+)/$', delete_employee, name='core_delete_employee'),
+    path('employee-pdf/', Employee_pdf.as_view(), name='core_employee_pdf'),
+    path('employee-csv/', Employee_csv.as_view(), name='core_employee_csv'),
 
     # path('company-list', CompanyList.as_view(), name='company_list'),
     # path('company-edit/<int:company>/', CompanyEdit.as_view(), name="company_edit"),

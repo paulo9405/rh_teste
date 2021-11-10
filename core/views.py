@@ -1,6 +1,15 @@
 from django.shortcuts import render, redirect
+from django.views import View
+
 from core.models import Company, Department, Employee
 from .forms import CompanyForm, DepartmentForm, EmployeeForm
+
+from django.http import HttpResponse
+from django.template.loader import get_template
+import xhtml2pdf.pisa as pisa
+import io
+from django.shortcuts import render
+import csv
 
 
 def list_company(request):
@@ -121,6 +130,84 @@ def delete_employee(request, id):
         return redirect('core_list_employee')
     else:
         return render(request, 'core/delete_confirm.html', {'obj': employee})
+
+
+#===================================================================================
+
+
+class Render:
+    @staticmethod
+    def render(path: str, params: dict, filename: str):
+        template = get_template(path)
+        html = template.render(params)
+        response = io.BytesIO()
+        pdf = pisa.pisaDocument(
+            io.BytesIO(html.encode("UTF-8")), response)
+        if not pdf.err:
+            response = HttpResponse(
+                response.getvalue(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment;filename=%s.pdf' % filename
+            return response
+        else:
+            return HttpResponse("Error Rendering PDF", status=400)
+
+
+class Employee_pdf(View):
+    def get(self, request):
+        employees = Employee.objects.all()
+        params = {
+            'employees': employees,
+            'request': request,
+        }
+        return Render.render('core/employee-pdf.html', params, 'employee_pdf')
+
+class Employee_csv(View):
+    def get(self, request):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="employee.csv"'
+
+        employees = Employee.objects.all()
+
+        writer = csv.writer(response)
+        writer.writerow([
+            'Id',
+            'Name',
+            'User',
+            'Gender',
+            'Department',
+            'Phone',
+            'Role',
+            'Age',
+            'Joining date',
+            'Salary',
+            'Create at',
+            'Updated at',
+            'create_user',
+            'Updated_user',
+        ])
+
+        for employee in employees:
+            writer.writerow(
+                [employee.id,
+                 employee.name,
+                 employee.user,
+                 employee.gender,
+                 employee.department,
+                 employee.phone,
+                 employee.role,
+                 employee.age,
+                 employee.joining_date,
+                 employee.salary,
+                 employee.created_at,
+                 employee.updated_at,
+                 employee.create_user,
+                 employee.update_user,
+
+                 ])
+
+        return response
+
+
 
 # class CreateCompany(CreateView):
 #     model = Company

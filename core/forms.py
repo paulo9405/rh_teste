@@ -18,12 +18,18 @@ class DepartmentForm(ModelForm):
 class EmployeeForm(ModelForm):
     class Meta:
         model = Employee
-        fields = '__all__'
+        # fields = '__all__'
+        fields = [
+            'name',
+            'user',
+            'gender',
+            'department',
+            'phone',
+            'role',
+            'age',
+            'joining_date',
+            'salary',
+        ]
 
-# class CompanyForm(forms.Form):
-#     company_id = forms.CharField(label='ID do Produto', max_length=100)
-#     logo = forms.IntegerField(label='logo')
-#     name = forms.CharField(label='Name', max_length=100)
-#     legal_number = forms.CharField(label='Legal Number', max_length=20)
 
 
