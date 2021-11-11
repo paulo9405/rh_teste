@@ -15,7 +15,7 @@ import csv
 
 def list_company(request):
     companies = Company.objects.all()
-    form = CompanyForm
+    form = CompanyForm()
     data = {'companies': companies, 'form': form}
     return render(request, 'core/list_company.html', data)
 
@@ -24,6 +24,8 @@ def create_company(request):
     form = CompanyForm(request.POST or None)
     if form.is_valid():
         form.save()
+    else:
+        print(form)
     return redirect('core_list_company')
 
 # def create_company(request):
@@ -104,7 +106,7 @@ def delete_department(request, id):
 
 def list_employee(request):
     employees = Employee.objects.all()
-    form = DepartmentForm
+    form = EmployeeForm()
     data = {'employees': employees, 'form': form}
     return render(request, 'core/list_employees.html', data)
 

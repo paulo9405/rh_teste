@@ -1,27 +1,47 @@
-<h2> Create Employee </h2>
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block menu %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item ">
+            <a class="nav-link" href="{% url 'core_list_company' %}">Company</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'core_list_department' %}">Department</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'core_list_employee' %}">Employee</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block main %}
+<h5> Create Employee </h5>
         <form action="{% url 'core_create_employee' %}" method="POST">
         {% csrf_token %}
 
-        {{form.as_p}}
+        {{ form|bootstrap }}
 
-        <button type="submit">Create</button>
+        <button type="submit" class="btn btn-info">Create</button>
         </form>
 
 
 
 <h2> Employee List </h2>
-        <table>
-            <thead>
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
-                <th scope="col">Name</th>
-                <th scope="col">User</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Department</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Role</th>
-                <th scope="col">Age</th>
-                <th scope="col">Joining date</th>
-                <th scope="col">Salary</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Joining date</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Edit</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -43,5 +63,6 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'core_employee_pdf' %}">Print PDF </a> <br>
-        <a href="{% url 'core_employee_csv' %}">Print CSV </a>
+        <a class="btn btn-info" href="{% url 'core_employee_pdf' %}">Print PDF </a>
+        <a class="btn btn-success" href="{% url 'core_employee_csv' %}">Print CSV </a>
+{% endblock %}

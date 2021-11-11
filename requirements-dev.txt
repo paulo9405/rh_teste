@@ -16,3 +16,6 @@ sqlparse==0.3.1
 static3==0.7.0
 webencodings==0.5.1
 xhtml2pdf==0.2.5
+django-allauth
+django-bootstrap-form
+

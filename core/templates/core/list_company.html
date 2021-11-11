@@ -1,19 +1,73 @@
-<h2> Create Company </h2>
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block menu %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item ">
+            <a class="nav-link active" href="{% url 'core_list_company' %}">Company</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'core_list_department' %}">Department</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'core_list_employee' %}">Employee</a>
+        </li>
+
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">Ola, {{ user }}</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block main %}
+
+
+<div class="row">
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="col-6">
+        <h5> Create Company </h5>
         <form action="{% url 'core_create_company' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {{form.as_p}}
+        {{ form|bootstrap }}
 
-        <button type="submit">Create</button>
+        <button type="submit" class="btn btn-info">Create</button>
         </form>
+    </div>
 
-<h2> Company List </h2>
-        <table>
-            <thead>
+    <div class="col-6">
+        <h5> Company List </h5>
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
                 <th scope="col">logo</th>
                 <th scope="col">Name</th>
                 <th scope="col">legal Number</th>
+                <th scope="col">Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,18 +85,9 @@
             </tbody>
 
         </table>
+    </div>
 
-<html>
-    <head>
-        <script>
-            {% if messages %}
-                {% for message in messages %}
-                    alert(message);
-                {% endfor %}
-            {% endif %}
-        </script>
-    </head>
-</html>
+</div>
 
-            <a href="department">Department</a> <br>
-            <a href="employee">Employee</a>
+
+{% endblock %}

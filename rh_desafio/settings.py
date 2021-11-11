@@ -15,15 +15,23 @@ ALLOWED_HOSTS = ['localhost', 'rh-teste.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', #TODO parei aqui.. continuar no log com redes sociais
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrapform',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
 
     'core',
-
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -40,7 +48,7 @@ ROOT_URLCONF = 'rh_desafio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -54,6 +62,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rh_desafio.wsgi.application'
+
+# AUTHENTICATION_BACKENDS = [
+#
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# ]
 
 
 
@@ -90,6 +104,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'core_list_company'
+LOGOUT_REDIRECT_URL = 'login'
 
 STATIC_URL = '/static/'
 
@@ -97,6 +114,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 
 EMAIL_HOST = 'smtp.gmail.com'

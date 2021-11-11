@@ -18,18 +18,7 @@ class DepartmentForm(ModelForm):
 class EmployeeForm(ModelForm):
     class Meta:
         model = Employee
-        # fields = '__all__'
-        fields = [
-            'name',
-            'user',
-            'gender',
-            'department',
-            'phone',
-            'role',
-            'age',
-            'joining_date',
-            'salary',
-        ]
+        fields = '__all__'
 
 
 
