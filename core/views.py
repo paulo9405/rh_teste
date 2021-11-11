@@ -1,11 +1,8 @@
-from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
-
 from core.models import Company, Department, Employee
 from .forms import CompanyForm, DepartmentForm, EmployeeForm
-
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.template.loader import get_template
 import xhtml2pdf.pisa as pisa
 import io
@@ -14,6 +11,7 @@ import csv
 from django.contrib.auth.decorators import login_required
 
 
+#Company
 @login_required()
 def list_company(request):
     companies = Company.objects.all()
@@ -58,8 +56,7 @@ def delete_company(request, id):
         return render(request, 'core/delete_confirm.html', {'obj': company})
 
 
-#===================================================================================
-
+#Department
 @login_required()
 def list_department(request):
     departments = Department.objects.all()
@@ -101,8 +98,7 @@ def delete_department(request, id):
         return render(request, 'core/delete_confirm.html', {'obj': department})
 
 
-#===================================================================================
-
+#Employee
 @login_required()
 def list_employee(request):
     employees = Employee.objects.all()
@@ -145,9 +141,7 @@ def delete_employee(request, id):
         return render(request, 'core/delete_confirm.html', {'obj': employee})
 
 
-#===================================================================================
-
-
+#PDF e CVS
 class Render:
     @staticmethod
     def render(path: str, params: dict, filename: str):
@@ -173,6 +167,7 @@ class Employee_pdf(View):
             'request': request,
         }
         return Render.render('core/employee-pdf.html', params, 'employee_pdf')
+
 
 class Employee_csv(View):
     def get(self, request):
@@ -219,29 +214,3 @@ class Employee_csv(View):
                  ])
 
         return response
-
-
-
-# class CreateCompany(CreateView):
-#     model = Company
-#     fields = [
-#             'logo',
-#             'name',
-#             'legal_number',
-#         ]
-#
-#     success_url = '/core/company-list'
-#
-#
-# class CompanyList(ListView):
-#     model = Company
-#
-# class CompanyEdit(View):
-#     def get(self, request, company):
-#         data = {}
-#         company = Company.objects.get(id=company)
-#         data['form'] = CompanyForm()
-#         data['logo'] = company.logo
-#         data['name'] = company.name
-#         data['legal_number'] = company.legal_number
-#         return render(request, '/core/company-form.html', data)

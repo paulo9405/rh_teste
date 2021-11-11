@@ -5,13 +5,10 @@ from django.template.loader import render_to_string
 from django.core.mail import send_mail
 
 
-
-# Create your models here.
-
 class Company(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          editable=False, unique=True)
     logo = models.ImageField(upload_to='logo', null=True)
-
     name = models.CharField(max_length=100, null=True)
     legal_number = models.CharField(max_length=20, null=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
@@ -25,13 +22,12 @@ class Company(models.Model):
 
 
 class Department(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          editable=False, unique=True)
     company = models.ForeignKey(Company, on_delete=models.PROTECT, null=True)
     name = models.CharField(max_length=100, null=True)
     status = models.BooleanField(default=True, null=True)
     admin = models.UUIDField(editable=False, null=True)
-
-    # This is auto created and updated date
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
@@ -62,15 +58,14 @@ class Department(models.Model):
 
 
 class Employee(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          editable=False, unique=True)
     name = models.CharField(max_length=100)
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     GENDER = (
         ('M', 'Male'),
         ('F', 'Female'),
         ('O', 'Others')
-
     )
     gender = models.CharField(max_length=1, choices=GENDER)
     department = models.ForeignKey(Department, on_delete=models.PROTECT, null=True)
@@ -86,6 +81,5 @@ class Employee(models.Model):
     create_user = models.UUIDField(editable=False, null=True)
     update_user = models.UUIDField(editable=False, null=True)
 
-    # Simple title return queue for django admin or auto template
     def __str__(self):
         return str(self.name)

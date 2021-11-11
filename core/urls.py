@@ -36,15 +36,4 @@ urlpatterns = [
     path('delete-employee/(?P<id>[0-9]+)/$', delete_employee, name='core_delete_employee'),
     path('employee-pdf/', Employee_pdf.as_view(), name='core_employee_pdf'),
     path('employee-csv/', Employee_csv.as_view(), name='core_employee_csv'),
-
-    # path('company-list', CompanyList.as_view(), name='company_list'),
-    # path('company-edit/<int:company>/', CompanyEdit.as_view(), name="company_edit"),
-
-   # path('process-list-full', ProcessList.as_view(), name='process-list-full'),
-   # path('process-list-partner', ProcessListPartner.as_view(), name='process-list-partner'),
-   # path('process-list-owner', ProcessListOwner.as_view(), name='process-list-owner'),
-   # path('process-create', ProcessCreate.as_view(), name='process-create'),
-   # path('process-detail/<uuid:pk>', ProcessDetail.as_view(), name='process-detail'),
-   # path('process-update/<uuid:pk>', ProcessUpdate.as_view(), name='process-update'),
-   # path('process-delete/<uuid:pk>', ProcessDelete.as_view(), name='process-delete'),
 ]
