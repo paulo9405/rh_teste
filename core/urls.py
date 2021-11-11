@@ -47,8 +47,4 @@ urlpatterns = [
    # path('process-detail/<uuid:pk>', ProcessDetail.as_view(), name='process-detail'),
    # path('process-update/<uuid:pk>', ProcessUpdate.as_view(), name='process-update'),
    # path('process-delete/<uuid:pk>', ProcessDelete.as_view(), name='process-delete'),
-
-
-
-
 ]

@@ -31,5 +31,3 @@ static3==0.7.0
 urllib3==1.26.7
 webencodings==0.5.1
 xhtml2pdf==0.2.5
-
-

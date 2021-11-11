@@ -106,7 +106,7 @@ USE_TZ = True
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'core_company'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'core_company'
 
 STATIC_URL = '/static/'
 
