@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 
 class Company(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    logo = models.ImageField(upload_to='logo', null=True) #TODO: Erro ao carregar consertar
+    logo = models.ImageField(upload_to='logo', null=True)
 
     name = models.CharField(max_length=100, null=True)
     legal_number = models.CharField(max_length=20, null=True)

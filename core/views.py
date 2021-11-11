@@ -11,31 +11,28 @@ import xhtml2pdf.pisa as pisa
 import io
 from django.shortcuts import render
 import csv
+from django.contrib.auth.decorators import login_required
 
 
+@login_required()
 def list_company(request):
     companies = Company.objects.all()
     form = CompanyForm()
     data = {'companies': companies, 'form': form}
-    return render(request, 'core/list_company.html', data)
+    return render(request, 'core/company.html', data)
 
 
+@login_required()
 def create_company(request):
-    form = CompanyForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    else:
-        print(form)
-    return redirect('core_list_company')
+    if request.method == "POST":
+        form = CompanyForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            form.save()
 
-# def create_company(request):
-#     form = CompanyForm(request.POST or None)
-#     if form.is_valid():
-#         return HttpResponseRedirect('/thanks/')
-#     else:
-#         messages.error(request, "Error")
-#     return render(request, 'core/list_company.html', {'form': CompanyForm()})
+    return redirect('core_company')
 
+
+@login_required()
 def update_company(request, id):
     data = {}
     company = Company.objects.get(id=id)
@@ -46,37 +43,40 @@ def update_company(request, id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('core_list_company')
+            return redirect('core_company')
     else:
         return render(request, 'core/update_company.html',  data)
 
 
+@login_required()
 def delete_company(request, id):
     company = Company.objects.get(id=id)
     if request.method == 'POST':
         company.delete()
-        return redirect('core_list_company')
+        return redirect('core_company')
     else:
         return render(request, 'core/delete_confirm.html', {'obj': company})
 
 
 #===================================================================================
 
-
+@login_required()
 def list_department(request):
     departments = Department.objects.all()
     form = DepartmentForm
     data = {'departments': departments, 'form': form}
-    return render(request, 'core/list_department.html', data)
+    return render(request, 'core/department.html', data)
 
 
+@login_required()
 def create_department(request):
     form = DepartmentForm(request.POST or None)
     if form.is_valid():
         form.save()
-    return redirect('core_list_department')
+    return redirect('core_department')
 
 
+@login_required()
 def update_department(request, id):
     data = {}
     department = Department.objects.get(id=id)
@@ -87,37 +87,39 @@ def update_department(request, id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('core_list_department')
+            return redirect('core_department')
     else:
         return render(request, 'core/update_department.html',  data)
 
-
+@login_required()
 def delete_department(request, id):
     department = Department.objects.get(id=id)
     if request.method == 'POST':
         department.delete()
-        return redirect('core_list_department')
+        return redirect('core_department')
     else:
         return render(request, 'core/delete_confirm.html', {'obj': department})
 
 
 #===================================================================================
 
-
+@login_required()
 def list_employee(request):
     employees = Employee.objects.all()
     form = EmployeeForm()
     data = {'employees': employees, 'form': form}
-    return render(request, 'core/list_employees.html', data)
+    return render(request, 'core/employee.html', data)
 
 
+@login_required()
 def create_employee(request):
     form = EmployeeForm(request.POST or None)
     if form.is_valid():
         form.save()
-    return redirect('core_list_employee')
+    return redirect('core_employee')
 
 
+@login_required()
 def update_employee(request, id):
     data = {}
     employee = Employee.objects.get(id=id)
@@ -128,16 +130,17 @@ def update_employee(request, id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('core_list_employee')
+            return redirect('core_employee')
     else:
         return render(request, 'core/update_employee.html',  data)
 
 
+@login_required()
 def delete_employee(request, id):
     employee = Employee.objects.get(id=id)
     if request.method == 'POST':
         employee.delete()
-        return redirect('core_list_employee')
+        return redirect('core_employee')
     else:
         return render(request, 'core/delete_confirm.html', {'obj': employee})
 

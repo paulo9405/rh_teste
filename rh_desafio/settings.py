@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['localhost', 'rh-teste.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth', #TODO parei aqui.. continuar no log com redes sociais
+    'django.contrib.auth',
     'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -63,11 +63,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rh_desafio.wsgi.application'
 
-# AUTHENTICATION_BACKENDS = [
-#
-#     'django.contrib.auth.backends.ModelBackend',
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# ]
+AUTHENTICATION_BACKENDS = [
+
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 
 
@@ -105,7 +105,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'core_list_company'
+LOGIN_REDIRECT_URL = 'core_company'
 LOGOUT_REDIRECT_URL = 'login'
 
 STATIC_URL = '/static/'

@@ -6,7 +6,7 @@ from .models import Employee, Company, Department
 class CompanyForm(ModelForm):
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = "logo", "name", "legal_number",
 
 
 class DepartmentForm(ModelForm):
