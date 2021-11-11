@@ -19,6 +19,7 @@ from .views import (
 
 urlpatterns = [
 
+    path('', list_company, name='core_company'),
     path('company/', list_company, name='core_company'),
     path('create-company/', create_company, name='core_create_company'),
     path('update-company/(?P<id>[0-9]+)/$', update_company, name='core_update_company'),
