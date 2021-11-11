@@ -1,7 +1,9 @@
 import uuid
-
 from django.contrib.auth.models import User
 from django.db import models
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+
 
 
 # Create your models here.
@@ -38,6 +40,25 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        data = {'company': self.company,
+                'name': self.name,
+                'status': self.status,
+                }
+
+        plain_text = render_to_string('core/emails/new_department.txt', data)
+        html_email = render_to_string('core/emails/new_department.html', data)
+        send_mail(
+            'New department created',
+            plain_text,
+            'paulo.ricardo1137.pr@gmail.com',
+            ['paulo.ricardo1137.pr@gmail.com'],
+            html_message=html_email,
+            fail_silently=False,
+        )
+
+        return super(Department, self).save(*args, **kwargs)
 
 
 class Employee(models.Model):

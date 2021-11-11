@@ -32,5 +32,17 @@
 
         </table>
 
+<html>
+    <head>
+        <script>
+            {% if messages %}
+                {% for message in messages %}
+                    alert(message);
+                {% endfor %}
+            {% endif %}
+        </script>
+    </head>
+</html>
+
             <a href="department">Department</a> <br>
             <a href="employee">Employee</a>

@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 
 from core.models import Company, Department, Employee
 from .forms import CompanyForm, DepartmentForm, EmployeeForm
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 import xhtml2pdf.pisa as pisa
 import io
@@ -25,6 +26,13 @@ def create_company(request):
         form.save()
     return redirect('core_list_company')
 
+# def create_company(request):
+#     form = CompanyForm(request.POST or None)
+#     if form.is_valid():
+#         return HttpResponseRedirect('/thanks/')
+#     else:
+#         messages.error(request, "Error")
+#     return render(request, 'core/list_company.html', {'form': CompanyForm()})
 
 def update_company(request, id):
     data = {}
